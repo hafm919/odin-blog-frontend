@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 function Sidebar({
   showSidebar,
   toggleSidebar,
@@ -5,6 +6,14 @@ function Sidebar({
   selectedTab,
   user,
 }) {
+  function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/");
+  }
+
+  const navigate = useNavigate();
+
   return (
     <div
       className={`fixed top-0 left-0 w-full md:w-[25vw] flex flex-col z-10 bg-white p-5 text-white shadow-xl h-screen ease-in-out duration-300 ${
@@ -47,16 +56,18 @@ function Sidebar({
         >
           Profile
         </button>
-        <button
-          className={`${
-            selectedTab === "posts"
-              ? "bg-black text-white"
-              : "bg-white text-black"
-          } text-left font-sans p-2 border border-black hover:bg-black hover:text-white`}
-          onClick={() => setSelectedTab("posts")}
-        >
-          Posts
-        </button>
+        {user.role == "editor" && (
+          <button
+            className={`${
+              selectedTab === "posts"
+                ? "bg-black text-white"
+                : "bg-white text-black"
+            } text-left font-sans p-2 border border-black hover:bg-black hover:text-white`}
+            onClick={() => setSelectedTab("posts")}
+          >
+            Posts
+          </button>
+        )}
         <button
           className={`${
             selectedTab === "comments"
@@ -67,7 +78,10 @@ function Sidebar({
         >
           Comments
         </button>
-        <button className="bg-white text-left font-sans text-right text-black p-3 border border-black hover:bg-black hover:text-white mt-auto">
+        <button
+          className="bg-white text-left font-sans text-right text-black p-3 border border-black hover:bg-black hover:text-white mt-auto"
+          onClick={logout}
+        >
           <i className="fa fa-right-from-bracket"></i> Logout
         </button>
       </div>

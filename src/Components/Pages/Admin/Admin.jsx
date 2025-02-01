@@ -7,7 +7,7 @@ import AdminPosts from "./AdminPosts";
 import { useNavigate } from "react-router-dom";
 function Admin() {
   const [showSidebar, setShowSidebar] = useState(true);
-  const [selectedTab, setSelectedTab] = useState("posts");
+  const [selectedTab, setSelectedTab] = useState("comments");
   const [addPostMode, setPostAddMode] = useState(false);
   const [postId, setPostId] = useState(null);
   const navigate = useNavigate();

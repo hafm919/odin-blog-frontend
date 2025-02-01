@@ -42,7 +42,7 @@ function Login() {
         // Save token to localStorage or state
         localStorage.setItem("token", responseData.token);
         localStorage.setItem("user", JSON.stringify(responseData.user));
-        navigate("/", { replace: true });
+        window.location.replace("/");
       }
     } catch (error) {
       console.error("Error:", error);

@@ -1,15 +1,27 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 function Navbar() {
-  let profile;
-  let profileLink;
-  if (localStorage.user) {
-    const user = JSON.parse(localStorage.user);
-    profile = user.name;
-    profileLink = "/dashboard";
-  } else {
-    profile = "Login";
-    profileLink = "/login";
-  }
+  const [profile, setProfile] = useState("Login");
+  const [profileLink, setProfileLink] = useState("/login");
+  useEffect(() => {
+    const handleStorageChange = () => {
+      try {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+          const user = JSON.parse(storedUser);
+          setProfile(user.name);
+          setProfileLink("/dashboard");
+        } else {
+          setProfile("Login");
+          setProfileLink("/login");
+        }
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+      }
+    };
+    handleStorageChange();
+  }, []);
+
   return (
     <nav className="flex place-content-between md:flex-row items-center p-3 flex-wrap">
       <h1 className="font-serif text-3xl font-semibold">Musing</h1>

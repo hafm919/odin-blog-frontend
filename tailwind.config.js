@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Work Sans"', '"Comic Sans MS"'],
+        sans: ['"Work Sans"', '"sans"'],
         serif: ['"Source Serif 4"', "Georgia"],
       },
     },

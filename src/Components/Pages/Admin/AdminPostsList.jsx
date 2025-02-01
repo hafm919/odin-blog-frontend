@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function AdminPostsList({ user, editPost }) {
+function AdminPostsList({ user, editPost, deletePost, togglePublished }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -49,11 +49,21 @@ function AdminPostsList({ user, editPost }) {
               >
                 Edit
               </button>
-              <button className="text-red-500 hover:underline ml-2">
+              <button
+                className="text-red-500 hover:underline ml-2"
+                onClick={() => {
+                  deletePost(post.id);
+                }}
+              >
                 Delete
               </button>
-              <button className="text-green-500 hover:underline ml-2">
-                Publish
+              <button
+                className="text-green-500 hover:underline ml-2 "
+                onClick={() => {
+                  togglePublished(post.id);
+                }}
+              >
+                {post.published ? "Unpublish" : "Publish"}
               </button>
             </td>
           </tr>

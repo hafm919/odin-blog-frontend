@@ -20,6 +20,16 @@ function AdminComments({ user }) {
     getComments();
   }, [user.id]);
 
+  async function deleteComment(commentId, postId) {
+    await fetch(`http://localhost:3000/posts/${postId}/comments/${commentId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.token}`,
+      },
+    });
+    window.location.reload();
+  }
+
   if (loading) {
     return <p>Loading..</p>;
   }
@@ -37,10 +47,17 @@ function AdminComments({ user }) {
       <tbody>
         {comments.map((comment) => (
           <tr className="border-b" key={comment.id} id={comment.id}>
-            <td className="py-3">2</td>
+            <td className="py-3">{comment.id}</td>
             <td>{comment.content}</td>
             <td>{comment.post.title}</td>
-            <td>edit delete</td>
+            <td>
+              <button
+                className="text-red-500 hover:underline"
+                onClick={() => deleteComment(comment.id, comment.post.id)}
+              >
+                Delete
+              </button>
+            </td>
           </tr>
         ))}
       </tbody>
