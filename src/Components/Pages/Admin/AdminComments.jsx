@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 function AdminComments({ user }) {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const API_URL = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const getComments = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3000/author/${user.id}/comments`
-        );
+        const response = await fetch(`${API_URL}/author/${user.id}/comments`);
         const comments = await response.json();
         setComments(comments);
         console.log(comments);
@@ -21,7 +20,7 @@ function AdminComments({ user }) {
   }, [user.id]);
 
   async function deleteComment(commentId, postId) {
-    await fetch(`http://localhost:3000/posts/${postId}/comments/${commentId}`, {
+    await fetch(`${API_URL}/posts/${postId}/comments/${commentId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.token}`,

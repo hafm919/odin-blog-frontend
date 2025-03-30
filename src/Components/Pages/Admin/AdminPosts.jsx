@@ -4,12 +4,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function AdminPosts({ postId, setPostId, setAddMode, addMode, user }) {
+  const API_URL = import.meta.env.VITE_API_URL;
   function editPost(postId) {
     setPostId(postId);
     setAddMode(true);
   }
   async function deletePost(postId) {
-    await fetch(`http://localhost:3000/posts/${postId}`, {
+    await fetch(`${API_URL}/posts/${postId}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${localStorage.token}` },
     });
@@ -17,7 +18,7 @@ function AdminPosts({ postId, setPostId, setAddMode, addMode, user }) {
   }
 
   async function togglePublished(postId) {
-    await fetch(`http://localhost:3000/posts/${postId}`, {
+    await fetch(`${API_URL}/posts/${postId}`, {
       method: "PATCH",
       headers: { Authorization: `Bearer ${localStorage.token}` },
     });

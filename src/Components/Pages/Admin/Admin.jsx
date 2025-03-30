@@ -5,9 +5,10 @@ import AdminComments from "./AdminComments";
 import AdminAddPost from "./AdminAddPost";
 import AdminPosts from "./AdminPosts";
 import { useNavigate } from "react-router-dom";
+import AdminProfile from "./AdminProfile";
 function Admin() {
   const [showSidebar, setShowSidebar] = useState(true);
-  const [selectedTab, setSelectedTab] = useState("comments");
+  const [selectedTab, setSelectedTab] = useState("profile");
   const [addPostMode, setPostAddMode] = useState(false);
   const [postId, setPostId] = useState(null);
   const navigate = useNavigate();
@@ -40,6 +41,10 @@ function Admin() {
     case "comments":
       content = <AdminComments user={user} />;
       title = "Comments";
+      break;
+    case "profile":
+      content = <AdminProfile user={user}></AdminProfile>;
+      title = "Profile";
       break;
   }
 

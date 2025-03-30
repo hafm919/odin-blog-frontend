@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
 function Sidebar({
   showSidebar,
   toggleSidebar,
@@ -6,6 +7,7 @@ function Sidebar({
   selectedTab,
   user,
 }) {
+  const API_URL = import.meta.env.VITE_API_URL;
   function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -29,15 +31,17 @@ function Sidebar({
 
       {/* Sidebar title */}
       <div>
-        <h3 className="text-4xl font-semibold text-black font-serif text-center">
-          Musing
-        </h3>
+        <Link to="/">
+          <h3 className="text-4xl font-semibold text-black font-serif text-center">
+            Musing
+          </h3>
+        </Link>
       </div>
 
       {/* User Details */}
       <div className="flex flex-col  place-items-center w-full h-1/4 pt-4 justify-center">
         <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg2UYjIh_mqRAWnKFUUyuHASqEEZzFbR2CMw&s"
+          src={`${API_URL}${user.profileImg}`}
           className="rounded-full object-cover aspect-square h-1/2"
         ></img>
         <h3 className="font-bold  text-black">{user.name}</h3>

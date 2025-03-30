@@ -24,7 +24,9 @@ function Navbar() {
 
   return (
     <nav className="flex place-content-between md:flex-row items-center p-3 flex-wrap">
-      <h1 className="font-serif text-3xl font-semibold">Musing</h1>
+      <Link to="/">
+        <h1 className="font-serif text-3xl font-semibold">Musing</h1>
+      </Link>
       <div id="nav-links" className="gap-3 hidden md:visible md:flex ">
         <li className="font-sans list-none hover:text-blue-600">Home</li>
         <li className="font-sans list-none hover:text-blue-600">

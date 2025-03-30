@@ -4,15 +4,15 @@ import { useEffect, useState } from "react";
 
 function Homepage() {
   const [posts, setPosts] = useState([]);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const getPosts = async () => {
-      const response = await fetch(`http://localhost:3000/posts?limit=${10}`);
+      const response = await fetch(`${API_URL}/posts?limit=${10}`);
       const posts = await response.json();
       setPosts(posts);
     };
     getPosts();
-    console.log(posts);
   }, []);
 
   return (

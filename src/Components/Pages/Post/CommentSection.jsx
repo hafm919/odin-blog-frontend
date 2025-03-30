@@ -7,13 +7,12 @@ function CommentSection({ postId }) {
 
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]); // State to store comments
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // Fetch comments function
   async function fetchComments() {
     try {
-      const response = await fetch(
-        `http://localhost:3000/posts/${postId}/comments`
-      );
+      const response = await fetch(`${API_URL}/posts/${postId}/comments`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -39,17 +38,14 @@ function CommentSection({ postId }) {
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/posts/${postId}/comments`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ content: comment }),
-        }
-      );
+      const response = await fetch(`${API_URL}/posts/${postId}/comments`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ content: comment }),
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

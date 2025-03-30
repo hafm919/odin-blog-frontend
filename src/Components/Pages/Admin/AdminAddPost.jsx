@@ -5,17 +5,20 @@ function AdminAddPost({ postId, setPostId }) {
   const [uploadedImage, setUploadedImage] = useState(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [categories, setCategories] = useState("");
   const [imageFile, setImageFile] = useState(null);
+
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const initialize = async () => {
       if (postId != null) {
-        const response = await fetch(`http://localhost:3000/posts/${postId}`);
+        const response = await fetch(`${API_URL}/posts/${postId}`);
         const post = await response.json();
         setTitle(post.title);
         setContent(post.content);
         setImageFile(null);
-        setUploadedImage(`http://localhost:3000${post.imageUrl}`);
+        setUploadedImage(`${API_URL}/${post.imageUrl}`);
       }
     };
     initialize();
@@ -28,10 +31,10 @@ function AdminAddPost({ postId, setPostId }) {
   }
 
   async function handleSubmit(e) {
-    let apiEndPoint = `http://localhost:3000/posts`;
+    let apiEndPoint = `${API_URL}/posts`;
     let method = "POST";
     if (postId) {
-      apiEndPoint = `http://localhost:3000/posts/${postId}`;
+      apiEndPoint = `${API_URL}/posts/${postId}`;
       method = "PUT";
     }
     console.log(method);
@@ -39,6 +42,7 @@ function AdminAddPost({ postId, setPostId }) {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
+    formData.append("categories", categories);
     if (imageFile) {
       formData.append("image", imageFile);
     }
@@ -84,6 +88,15 @@ function AdminAddPost({ postId, setPostId }) {
         required
         onChange={(e) => {
           setTitle(e.target.value);
+        }}
+      ></input>
+      <input
+        type="text"
+        placeholder="Category, comma seperated"
+        className=" border-b border-black focus:outline-none"
+        name="categories"
+        onChange={(e) => {
+          setCategories(e.target.value);
         }}
       ></input>
       <div className="h-1/2 m-2 flex flex-col gap-2  place-content-center items-center border-2 border-blue-300 border-dashed rounded-md min-h-min">

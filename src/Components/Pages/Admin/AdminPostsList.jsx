@@ -3,13 +3,12 @@ import { useState, useEffect } from "react";
 function AdminPostsList({ user, editPost, deletePost, togglePublished }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3000/author/${user.id}/posts`
-        );
+        const response = await fetch(`${API_URL}/author/${user.id}/posts`);
         const data = await response.json();
         setPosts(data);
       } catch (error) {

@@ -8,6 +8,15 @@ h2 {
   font-size: large;
   font-weight: bold;
 }
+/* h3 {
+  font-family: "Work Sans", "sans";
+  font-size: medium;
+  font-weight: bold;
+} */
 p {
   font-family: "Source Serif 4", Georgia, serif;
+}
+ul {
+  list-style: disc;
+  margin-left: 30px;
 }

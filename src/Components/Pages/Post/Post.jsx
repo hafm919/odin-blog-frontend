@@ -4,12 +4,13 @@ import { useState, useEffect } from "react";
 import "./Post.css";
 
 function Post() {
+  const API_URL = import.meta.env.VITE_API_URL;
   const { postId } = useParams();
   console.log(postId);
   const [post, setPost] = useState(null);
   useEffect(() => {
     const getPosts = async () => {
-      const response = await fetch(`http://localhost:3000/posts/${postId}`);
+      const response = await fetch(`${API_URL}/posts/${postId}`);
       const post = await response.json();
       setPost(post);
     };
@@ -38,7 +39,7 @@ function Post() {
       </header>
       <img
         className="object-coverw-full rounded-md"
-        src={`http://localhost:3000${post.imageUrl}`}
+        src={`${API_URL}${post.imageUrl}`}
       ></img>
       <div dangerouslySetInnerHTML={{ __html: post.content }} />
       <CommentSection postId={postId}></CommentSection>
